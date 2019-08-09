@@ -54,13 +54,12 @@
                         <a class="" href="javascript:;">客户服务管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="">列表一</a></dd>
-                            <dd><a href="crm/public/client/lists">列表二</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">商家管理</a>
+                        <a class="" href="javascript:;">教师管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="">商品添加</a></dd>
+                            <dd><a href="{{asset('/admin/Tacher')}}">教师展示</a></dd>
                             <dd><a href="">商品展示</a></dd>
                             <dd><a href="">商品审核</a></dd>
                             <dd><a href="">商品商家订单</a></dd>

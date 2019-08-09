@@ -49,5 +49,7 @@ Route::prefix('/admin')->group(function(){
 	Route::get('Log','Admin\LoginController@Log');
 	//后台注册
 	Route::get('Reg','Admin\LoginController@reg');
+	//后台教师管理
+	Route::get('Tacher','Admin\TacherController@index');
 });
 
