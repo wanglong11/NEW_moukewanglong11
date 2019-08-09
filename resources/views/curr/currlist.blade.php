@@ -48,7 +48,7 @@
       <ul class="courseulr">
         <li>
         	<div class="courselist">
-            <a href="/curr/currcont" target="_blank"><img style="border-radius:3px 3px 0 0;" width="240" src="images/c1.jpg" title="会计基础"></a>
+            <a href="/curr/currcont" target="_blank"><img style="border-radius:3px 3px 0 0;" width="240" src="{{asset('images/c1.jpg')}}" title="会计基础"></a>
             <p class="courTit"><a href="coursecont.html" target="_blank">会计基础</a></p>
             <div class="gray">
             <span>30课时 600分钟</span>
