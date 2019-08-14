@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-    // return view('welcome');
-// });
+ Route::get('/', function () {
+     return view('welcome');
+ });
 
 //前台模块
 Route::prefix('/')->group(function(){
