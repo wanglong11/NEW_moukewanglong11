@@ -8,7 +8,9 @@
 <link rel="stylesheet" href="{{asset('css/course.css')}}"/>
 <script src="{{asset('js/jquery.tabs.js')}}"></script>
 <script src="{{asset('js/mine.js')}}"></script>
+{{--<script src="{{asset('js/jquery.js')}}"></script>--}}
 <script type="text/javascript">
+
 $(function(){
 
 	$('.demo2').Tabs({
@@ -26,7 +28,8 @@ $(function(){
 <div class="coursecont">
 <div class="coursepic1">
    <div class="coursetitle1">
-    	<h2 class="courseh21">会计财经法规与会计职业道德</h2>
+       <input type="hidden" name="lesson_id" value="{{$detailInfo['lesson_id']}}">
+    	<h2 class="courseh21">{{$detailInfo['lesson_name']}}</h2>
 		<div  style="margin-top:-40px;margin-right:25px;float:right;">
 		<div class="bdsharebuttonbox">
 			<a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
@@ -43,15 +46,15 @@ $(function(){
 		</div>
    </div>
    <div class="course_img1">
-	   <img src="images/c1.jpg" height="140">	   
+	   <img src="{{asset('img')}}/{{$detailInfo['lesson_img']}}" height="140">
    </div>
    <div class="course_xq">
-       <span class="courstime1"><p>课时<br/><span class="coursxq_num">100课时</span></p></span>
-	   <span class="courstime1"><p>学习人数<br/><span class="coursxq_num">25987人</span></p></span>
-	   <span class="courstime1"><p style="border:none;">课程时长<br/><span class="coursxq_num">3小时20分</span></p></span>
+       <span class="courstime1"><p>课时<br/><span class="coursxq_num">{{$detailInfo['class_hour']}}课时</span></p></span>
+	   <span class="courstime1"><p>学习人数<br/><span class="coursxq_num">{{$detailInfo['student_count']}}人</span></p></span>
+	   <span class="courstime1"><p style="border:none;">课程时长<br/><span class="coursxq_num">{{$detailInfo['class_time']}}分</span></p></span>
    </div>
    <div class="course_xq2">
-      <a class="course_learn" href="/curr/video">开始学习</a>
+      <a class="course_learn" href="{{asset('audio/audio.mp4')}}">开始学习</a>
    </div> 
     <div class="clearh"></div>
 </div>
@@ -65,32 +68,29 @@ $(function(){
 				<li class="course1">问答</li>
                 <li class="course1">资料区</li>
 			</ul>
-			<!--<a class="fombtn" style=" position:absolute; z-index:3; top:-10px; width:80px; text-align:center;right:0px;" href="#">下载资料包</a>-->
 			<div class="tab_box">
 				<div>
 					<dl class="mulu noo">
+                        @foreach($lessondir as $k=>$v)
 					<div>
-                        <dt class="mulu_title"><span class="mulu_img"></span>第一章&nbsp;&nbsp;总论
+                        <dt class="mulu_title"><span class="mulu_img"></span>第{{$k+1}}章&nbsp;&nbsp;{{$v['title']}}
 						<span class="mulu_zd">+</span></dt>
 						<div class="mulu_con">
-							<dd class="smalltitle"><strong>第一节&nbsp;&nbsp;会计的概念与目标</strong></dd>
-							<a href="video.html"><dd><strong class="cataloglink">课时1：会计的概念与目标1</strong><i class="fini nn"></i></dd></a>
-							<a href="video.html"><dd><strong class="cataloglink">课时2：会计的概念与目标2</strong><i class="fini fn"></i></dd></a>
-							<dd class="smalltitle"><strong>第二节&nbsp;&nbsp;会计的职能与方法</strong></dd>
-							<a href="video.html"><dd><strong class="cataloglink">课时1：会计的职能与方法1</strong><i class="fini nn"></i></dd></a>
-							<a href="video.html"><dd><strong class="cataloglink">课时2：会计的职能与方法2</strong><i class="fini fn"></i></dd></a>
-							<a href="video.html"><dd><strong class="cataloglink">课时1：会计的职能与方法3</strong><i class="fini ff"></i></dd></a>
+                            @foreach($arr as $kk=>$vv)
+                                @foreach($vv as $kkk=>$vvv)
+                                    @if($v['dir_id'] == $vvv['pid'])
+							            <dd class="smalltitle"><strong>第{{$kkk+1}}节&nbsp;&nbsp;{{$vvv['title']}}</strong></dd>
+                                            @if(isset($vvv['data']))
+                                            @foreach($vvv['data'] as $key=>$val)
+                                                <a href="{{asset('audio/')}}/{{$val['src']}}"><dd><strong class="cataloglink">课时{{$key+1}}：{{$val['title']}}</strong><i class="fini fn"></i></dd></a>
+                                            @endforeach
+                                            @endif
+                                    @endif
+                                @endforeach
+                            @endforeach
 						</div>
 					</div>
-					<div>
-                        <dt class="mulu_title"><span class="mulu_img"></span>第二章&nbsp;&nbsp;会计要素与会计等式
-						<span class="mulu_zd">+</span></dt>
-						<div class="mulu_con">
-							<dd class="smalltitle"><strong>第一节&nbsp;&nbsp;会计要素</strong></dd>
-							<a href="video.html"><dd><strong class="cataloglink">课时1：会计要素与会计等式1</strong><i class="fini nn"></i></dd></a>
-							<a href="video.html"><dd><strong class="cataloglink">课时2：会计要素与会计等式2</strong><i class="fini nn"></i></dd></a>
-						</div>
-					</div>
+                        @endforeach
                    </dl>                   
 				</div>
 				<div class="hide">
@@ -104,29 +104,24 @@ $(function(){
                             <li><a href="javascript:;">4</a></li>
                             <li><a href="javascript:;">5</a></li>
                         </ul>
-                        <span></span>
+                        <span class="fen"></span>
                         <p></p>
 	                  </div>
                     <div class="c_eform">                      
-                        <textarea rows="7" class="pingjia_con" onblur="if (this.value =='') this.value='评价详细内容';this.className='pingjia_con'" onclick="if (this.value=='评价详细内容') this.value='';this.className='pingjia_con_on'">评价详细内容</textarea>
-                       <a href="#" class="fombtn">发布评论</a>
+                        <textarea rows="7" class="pingjia_con pingjia" onblur="if (this.value =='') this.value='评价详细内容';this.className='pingjia_con'" onclick="if (this.value=='评价详细内容') this.value='';this.className='pingjia_con_on'">评价详细内容</textarea>
+                       <a href="javascript:;" class="fombtn form1">发布评论</a>
                        <div class="clearh"></div>
                     </div>
 					<ul class="evalucourse">
+                        @foreach($evluates as $k=>$v)
                     	<li>
-                        	<span class="pephead"><img src="images/0-0.JPG" width="50" title="候候">
-                            <p class="pepname">候候候候</p>                           
+                        	<span class="pephead"><img src="{{asset('img')}}/{{$v['img']}}" width="50" title="{{$v['name']}}">
+                            <p class="pepname">{{$v['name']}}</p>
                             </span>
-                            <span class="pepcont"><p>2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013试真3年国家公。</p>
-                            <p class="peptime pswer">2015-01-02</p></span>
+                            <span class="pepcont"><p>{{$v['content']}}</p>
+                            <p class="peptime pswer">{{date("Y-m-d",$v['c_time'])}}</p></span>
                         </li>
-                        <li>
-                        	<span class="pephead"><img src="images/0-0.JPG" width="50" title="候候">
-                            <p class="pepname">候候15kpiii</p>                           
-                            </span>
-                            <span class="pepcont"><p>2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公。</p>
-                            <p class="peptime pswer">2015-01-02</p></span>
-                        </li>
+                        @endforeach
                     </ul>
 				</div>
 				</div>
@@ -134,30 +129,23 @@ $(function(){
 					<div>
                      <h3 class="pingjia">提问题</h3>
                     <div class="c_eform">
-                        <input type="text" class="pingjia_con" value="请输入问题标题" onblur="if (this.value =='') this.value='请输入问题标题';this.className='pingjia_con'" onclick="if (this.value=='请输入问题标题') this.value='';this.className='pingjia_con_on'"/><br/>
-                        <textarea rows="7" class="pingjia_con" onblur="if (this.value =='') this.value='请输入问题的详细内容';this.className='pingjia_con'" onclick="if (this.value=='请输入问题的详细内容') this.value='';this.className='pingjia_con_on'">请输入问题的详细内容</textarea>
-                       <a href="#" class="fombtn">发布</a>
+                        <input type="text" class="pingjia_con " id="biaoti" value="请输入问题标题" onblur="if (this.value =='') this.value='请输入问题标题';this.className='pingjia_con'" onclick="if (this.value=='请输入问题标题') this.value='';this.className='pingjia_con_on'"/><br/>
+                        <textarea rows="7" class="pingjia_con " id="neirong" onblur="if (this.value =='') this.value='请输入问题的详细内容';this.className='pingjia_con'" onclick="if (this.value=='请输入问题的详细内容') this.value='';this.className='pingjia_con_on'">请输入问题的详细内容</textarea>
+                       <a href="javascript:;" class="fombtn form2" >发布</a>
                        <div class="clearh"></div>
                     </div>
 					<ul class="evalucourse">
+                        @foreach($asks as $k=>$v)
                     	<li>
-                        	<span class="pephead"><img src="images/0-0.JPG" width="50" title="候候">
-							<p class="pepname">候候</p>                             
+                        	<span class="pephead"><img src="{{asset('img')}}/{{$v['img']}}" width="50" title="{{$v['name']}}">
+                            <p class="pepname">{{$v['name']}}</p>
                             </span>
                             <span class="pepcont">
-                            <p><a href="#" class="peptitle" target="_blank">2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年?</a></p>
-                            <p class="peptime pswer"><span class="pepask">回答(<strong><a class="bluelink" href="#">10</a></strong>)&nbsp;&nbsp;&nbsp;&nbsp;浏览(<strong><a class="bluelink" href="#">10</a></strong>)</span>2015-01-02</p>                        
+                            <p><a href="#" class="peptitle" target="_blank">{{$v['content']}}</a></p>
+                            <p class="peptime pswer"><span class="pepask">回答(<strong><a class="bluelink" href="#">{{$v['reply_num']}}</a></strong>)&nbsp;&nbsp;&nbsp;&nbsp;浏览(<strong><a class="bluelink" href="#">{{$v['look_num']}}</a></strong>)</span>2015-01-02</p>
                             </span>
                         </li>
-                        <li>
-                        	<span class="pephead"><img src="images/0-0.JPG" width="50" title="候候">
-							<p class="pepname">候候</p>                             
-                            </span>
-                            <span class="pepcont">
-							<p><a href="#" class="peptitle" target="_blank">2013年国家公务员考试真题2013年国家公务员考试真题2013年国家公务员考试真题2013年?</a></p>
-                            <p class="peptime pswer"><span class="pepask">回答(<strong><a class="bluelink" href="#">10</a></strong>)&nbsp;&nbsp;&nbsp;&nbsp;浏览(<strong><a class="bluelink" href="#">10</a></strong>)</span>2015-01-02</p>                              
-                            </span>
-                        </li>                                 
+                        @endforeach
                     </ul>
                     
 				</div>
@@ -165,18 +153,13 @@ $(function(){
 				<div class="hide">
 					<div>
 					<ul class="notelist" >
+                        @foreach($lessonDatas as $k=>$v)
        <li>
-	   <p class="mbm mem_not"><a href="#" class="peptitle">1.rar</a></p>
-       		<p class="gray"><b class="coclass">课时：<a href="#" target="_blank">会计的概念与目标1</a></b><b class="cotime">上传时间：<b class="coclass" >2015-05-8</b></b></p>
+	   <p class="mbm mem_not"><a href="{{asset('audio')}}/{{$v['src']}}" class="peptitle">{{$v['data_name']}}</a></p>
+       		<p class="gray"><b class="coclass">课时：<a href="{{asset('audio')}}/{{$v['src']}}" target="_blank">{{$detailInfo['lesson_name']}}</a></b><b class="cotime">上传时间：<b class="coclass" >{{date("Y-m-d",$v['c_time'])}}</b></b></p>
             
        </li>  
-       <li>
-	   <p class="mbm mem_not"><a href="#" class="peptitle">资料.rar</a></p>
-       		<p class="gray"><b class="coclass">课时：<a href="#" target="_blank">会计的概念与目标2</a></b><b class="cotime">上传时间：<b class="coclass" >2015-05-8</b></b></p>
-            
-       		
-            
-       </li>                      
+                        @endforeach
   </ul>
                     
 				</div>
@@ -193,11 +176,11 @@ $(function(){
     <h3 class="righttit">授课讲师</h3>
     <div class="teacher">
     <div class="teapic ppi">
-    <a href="teacher.html" target="_blank"><img src="images/teacher.png" width="80" class="teapicy" title="张民智"></a>
-     <h3 class="tname"><a href="teacher.html" class="peptitle" target="_blank">张民智</a><p style="font-size:14px;color:#666">会计讲师</p></h3>
+    <a href="teacher.html" target="_blank"><img src="{{asset('img')}}/{{$teacherInfo['img']}}" width="80" class="teapicy" title="{{$teacherInfo['name']}}"></a>
+     <h3 class="tname"><a href="teacher.html" class="peptitle" target="_blank">{{$teacherInfo['name']}}</a><p style="font-size:14px;color:#666">{{$pos_name}}</p></h3>
     </div>
     <div class="clearh"></div>
-    <p>十年以上Linux从业经验， 培训经验超过八年。在各 个知名培训机构做过金牌 讲师、学科负责人，培训 学员过万人。曾获红帽认 证讲师，微软认证讲师等 资质认证。教学以逻辑性 强、教学细致、知识点准 确著称。</p>
+        <p>{{$teacherInfo['intro']}}</p>
     </div>
     </div>
 </div>
@@ -207,10 +190,9 @@ $(function(){
     <h3 class="righttit" onclick="reglog_open();">最新学员</h3>
         <div class="teacher zxxy">
         <ul class="stuul">
-            <li><img src="images/0-0.JPG" width="60" title="张三李四"><p class="stuname">张三李四</p></li>
-            <li><img src="images/0-0.JPG" width="60" title="张三李四"><p class="stuname">张三李四</p></li>
-            <li><img src="images/0-0.JPG" width="60" title="张三李四"><p class="stuname">张三李四</p></li>
-            <li><img src="images/0-0.JPG" width="60" title="张三李四"><p class="stuname">张三李四</p></li>
+            @foreach($student_info as $k=>$v)
+            <li><img src="{{asset('img')}}/{{$v['img']}}" width="60" title="{{$v['name']}}"><p class="stuname">{{$v['name']}}</p></li>
+            @endforeach
         </ul>
         <div class="clearh"></div>
         </div>
@@ -221,20 +203,12 @@ $(function(){
     <div class="cr1">
     <h3 class="righttit">相关课程</h3>
     <div class="teacher">
-    <div class="teapic">
-        <a href="#"  target="_blank"><img src="images/c1.jpg" height="60" title="财经法规与财经职业道德"></a>
-        <h3 class="courh3"><a href="#" class="peptitle" target="_blank">财经法规与财经职业道德</a></h3>
-    </div>
-    <div class="clearh"></div>
-    <div class="teapic">
-        <a href="#"  target="_blank"><img src="images/c2.jpg" height="60" title="财经法规与财经职业道德"></a>
-        <h3 class="courh3"><a href="#" class="peptitle" target="_blank">财经法规与财经职业道德</a></h3>
-    </div>
-    <div class="clearh"></div>
-    <div class="teapic">
-        <a href="#"  target="_blank"><img src="images/c3.jpg" height="60" title="财经法规与财经职业道德"></a>
-        <h3 class="courh3"><a href="#" class="peptitle" target="_blank">财经法规与财经职业道德</a></h3>
-    </div>
+        @foreach($randLesson as $k=>$v)
+            <div class="teapic">
+                <a href="/curr/currcont/{{$v['lesson_id']}}"  target="_blank"><img src="{{asset('img')}}/{{$v['lesson_img']}}" height="60" title="{{$v['lesson_name']}}"></a>
+                <h3 class="courh3"><a href="/curr/currcont/{{$v['lesson_id']}}" class="peptitle" target="_blank">{{$v['lesson_name']}}</a></h3>
+            </div>
+        @endforeach
     <div class="clearh"></div>
     </div>
     </div>
@@ -345,5 +319,64 @@ $(function(){
 
 
 <div class="clearh"></div>
+
+<script>
+    $(function () {
+        $('.form1').click(function () {
+
+            var score = $('.fen').text();
+            score = score.substr(score,1);
+            if (score == ''){
+                alert('还未进行打分');return;
+            }
+            var content = $('.pingjia_con').val();
+            if (content == ''){
+                alert('请输入评价内容');return;
+            }
+
+            var lesson_id = $("[name=lesson_id]").val();
+            // alert(content);return;
+            $.post(
+                "/curr/evaluate/"+lesson_id,
+                {score:score,content:content},
+                function (res) {
+                    if (res == 1){
+                        alert('评论成功');
+                    }else{
+                        alert('评论失败');
+                    }
+                }
+            );
+        });
+        $('.form2').click(function () {
+            var title = $('#biaoti').val();
+            if (title == ''){
+                alert('请输入标题');return;
+            }
+            var content = $('#neirong').val();
+            if (content == ''){
+                alert('请输入提问的内容');return;
+            }
+            var lesson_id = $("[name=lesson_id]").val();
+            // alert(title);
+            // alert(content);
+            // alert(lesson_id);return;
+            $.post(
+                "/curr/ask/"+lesson_id,
+                {title:title,content:content},
+                function (res) {
+                    if (res == 1){
+                        alert('发布成功');
+                        history.go(0);
+                    }else{
+                        alert('发布失败');
+                        history.go(0);
+                    }
+                }
+            );
+
+        })
+    })
+</script>
 
 @endsection

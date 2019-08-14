@@ -10,9 +10,6 @@
 </head>
 <body>
 @section('sidebar')
-
-
-
     <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
@@ -54,13 +51,12 @@
                         <a class="" href="javascript:;">客户服务管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="">列表一</a></dd>
-                            <dd><a href="crm/public/client/lists">列表二</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">商家管理</a>
+                        <a class="" href="javascript:;">教师管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="">商品添加</a></dd>
+                            <dd><a href="{{asset('/admin/Tacher')}}">教师展示</a></dd>
                             <dd><a href="">商品展示</a></dd>
                             <dd><a href="">商品审核</a></dd>
                             <dd><a href="">商品商家订单</a></dd>
@@ -80,6 +76,20 @@
                         <a class="" href="javascript:;">个人中心</a>
                         <dl class="layui-nav-child">
                             <dd><a href="{{asset('/admin/teacher_con')}}">个人中心</a></dd>
+
+                        <a class="" href="javascript:;">课程分类</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{asset('/admin/Parent_Cart_Add')}}">课程父类添加</a></dd>
+                            <dd><a href="{{asset('/admin/Parent_Cart_List')}}">课程分类展示</a></dd>
+                            <dd><a href="{{asset('/admin/Subclass_Cart_Add')}}">课程子类添加</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">咨询管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{asset('/admin/ConsultAdd')}}">咨询添加</a></dd>
+                            <dd><a href="{{asset('/admin/Consult_List')}}">咨询展示</a></dd>
+
                         </dl>
                     </li>
                     <li class="layui-nav-item"><a href="">云市场</a></li>
