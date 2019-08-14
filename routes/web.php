@@ -11,9 +11,10 @@
 |
 */
 
-// Route::get('/', function () {
-    // return view('welcome');
-// });
+Route::get('/', function () {
+    phpinfo();
+});
+
 
 //前台模块
 Route::prefix('/')->group(function(){
@@ -49,5 +50,23 @@ Route::prefix('/admin')->group(function(){
 	Route::get('Log','Admin\LoginController@Log');
 	//后台注册
 	Route::get('Reg','Admin\LoginController@reg');
+
+
+
+	Route::get('lesson','Section\SectionController@lesson');
+	Route::post('lessonadd','Section\SectionController@lessonadd');
+	Route::get('section','Section\SectionController@section');
+	Route::post('sectionadd','Section\SectionController@sectionadd');
+	Route::get('subsection','Section\SectionController@subsection');
+	Route::post('subsectionadd','Section\SectionController@subsectionadd');
+	Route::get('hour','Section\SectionController@hour');
+	Route::post('houradd','Section\SectionController@houradd');
+	Route::any('upload','Section\SectionController@upload');
+	Route::any('audio','Section\SectionController@audio');
+	Route::any('sectiondata','Section\SectionController@sectiondata');
+	Route::any('sectiondel','Section\SectionController@sectiondel');
+	Route::any('teacher_con','Section\SectionController@teacher_con');
+	Route::any('teacher_img','Section\SectionController@teacher_img');
+	Route::any('eqit','Section\SectionController@eqit');
 });
 

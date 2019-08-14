@@ -42,7 +42,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="{{asset('layui/css/layui.css')}}">退了</a></li>
+                <li class="layui-nav-item"><a href="/admin/eqit">退了</a></li>
             </ul>
         </div>
 
@@ -66,7 +66,22 @@
                             <dd><a href="">商品商家订单</a></dd>
                         </dl>
                     </li>
-
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">章节管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{asset('/admin/lesson')}}">上传课程</a></dd>
+                            <dd><a href="{{asset('/admin/section')}}">上传章节</a></dd>
+                            <dd><a href="{{asset('/admin/subsection')}}">上传小节</a></dd>
+                            <dd><a href="{{asset('/admin/hour')}}">上传课时</a></dd>
+                            <dd><a href="{{asset('/admin/sectiondata')}}">查询</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{asset('/admin/teacher_con')}}">个人中心</a></dd>
+                        </dl>
+                    </li>
                     <li class="layui-nav-item"><a href="">云市场</a></li>
                     <li class="layui-nav-item"><a href="">发布商品</a></li>
                 </ul>
