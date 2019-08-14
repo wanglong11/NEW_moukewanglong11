@@ -20,17 +20,26 @@ Route::prefix('/')->group(function(){
 	//前台首页
 	Route::get('index','Index\IndexController@index');
 	//课程列表
-	Route::get('curr/currlist','Curr\CurrController@currList');
-	//课程详情
-	Route::get('curr/currcont','Curr\CurrController@currcont');
+	Route::any('curr/currlist/{id?}','Curr\CurrController@currList');
+	//收藏课程
+    Route::any('curr/collect/{id}','Curr\CurrController@collect');
+    //取消收藏
+    Route::any('curr/nocollect/{id}','Curr\CurrController@nocollect');
+    //评价
+    Route::any('curr/evaluate/{id}','Curr\CurrController@evaluate');
+    //问答
+    Route::any('curr/ask/{id}','Curr\CurrController@ask');
+
+    //课程详情
+	Route::get('curr/currcont/{id}','Curr\CurrController@currcont');
 	//章节列表
-	Route::get('curr/chapterlist','Curr\CurrController@chapterlist');
+	Route::get('curr/chapterlist/{id}','Curr\CurrController@chapterlist');
 	//开始学习
 	Route::get('curr/video','Curr\CurrController@video');
 	//资讯列表
 	Route::get('article/articlelist','Article\ArticleController@articleList');
 	//资讯详情
-	Route::get('article/articlecont','Article\ArticleController@articlecont');
+	Route::get('article/articlecont/{id}','Article\ArticleController@articlecont');
 	//讲师列表
 	Route::get('teacher/teacherlist','Teacher\TeacherController@teacherList');
 	//讲师详情
