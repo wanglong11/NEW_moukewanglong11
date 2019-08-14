@@ -158,6 +158,7 @@ class CurrController extends Controller
         $student = StudentLesson::where(['lesson_id'=>$lesson_id,'teacher_id'=>$teacherInfo['teacher_id']])->get()->toArray();
             //查询学员的信息
         $studentInfo = User::where('status',1)->get()->toArray();
+       // dd($studentInfo);
         $student_info = [];
         foreach ($student as $k=>$v){
             foreach ($studentInfo as $kk=>$vv){
@@ -172,6 +173,7 @@ class CurrController extends Controller
 
         //获取评论
         $evluate = LessonEvaluate::where(['lesson_id'=>$lesson_id])->orderBy('c_time','desc')->limit(3)->get()->toArray();
+       // dd($studentInfo);
         $evluates=[];
         foreach ($evluate as $k=>$v) {
             foreach ($studentInfo as $kk=>$vv){
@@ -183,6 +185,7 @@ class CurrController extends Controller
                 }
             }
         }
+        //dd($evluates);
         //获取回答
         $ask = LessonAsk::where(['lesson_id'=>$lesson_id])->orderBy('c_time','desc')->limit(3)->get()->toArray();
         $asks=[];
@@ -202,6 +205,7 @@ class CurrController extends Controller
 
         //获取该课程下的资料
         $lessonData = LessonData::get()->toArray();
+        //dd($lessonData);
         $lessonDatas = [];
         foreach($lessondir as $k=>$v){
             foreach ($lessonData as $kk=>$vv){
@@ -210,7 +214,7 @@ class CurrController extends Controller
                 }
             }
         }
-//        dd($asks);
+        //dd($lessonDatas);
 //        //根据章节id获取章节下的小节和课时
 
 
