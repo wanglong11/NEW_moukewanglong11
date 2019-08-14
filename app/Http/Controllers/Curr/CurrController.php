@@ -205,7 +205,7 @@ class CurrController extends Controller
 
         //获取该课程下的资料
         $lessonData = LessonData::get()->toArray();
-        //dd($lessonData);
+       // print_r( $lessonData);
         $lessonDatas = [];
         foreach($lessondir as $k=>$v){
             foreach ($lessonData as $kk=>$vv){
@@ -214,7 +214,7 @@ class CurrController extends Controller
                 }
             }
         }
-        //dd($lessonDatas);
+        //dd($lessondir);
 //        //根据章节id获取章节下的小节和课时
 
 
