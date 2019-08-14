@@ -30,8 +30,8 @@ class TeacherController extends Controller
         }else{
             $code=1;
             foreach($data as $k=>$v){
-                $pos_id=PosTeacherModel::where(['teacher_id'=>$v['teacher_id']])->first()->pos_id;
-                $pos_name=TeacherPosModel::where(['pos_id'=>$pos_id])->first()->pos_name;
+                $pos_id=PosTeacherModel::where(['teacher_id'=>$v['teacher_id']])->first()['pos_id'];
+                $pos_name=TeacherPosModel::where(['pos_id'=>$pos_id])->first()['pos_name'];
                 $data[$k]['pos_name']=$pos_name;
             }
         }
@@ -49,10 +49,10 @@ class TeacherController extends Controller
         $teacher_id=$request->get('teacher_id');
         //获取讲师信息
         $data=TeacherModel::where(['teacher_id'=>$teacher_id])->first()->toArray();
-        $pos_id=PosTeacherModel::where(['teacher_id'=>$teacher_id])->first()->pos_id;
-        $data['pos_name']=TeacherPosModel::where(['pos_id'=>$pos_id])->first()->pos_name;
+        $pos_id=PosTeacherModel::where(['teacher_id'=>$teacher_id])->first()['pos_id'];
+        $data['pos_name']=TeacherPosModel::where(['pos_id'=>$pos_id])->first()['pos_name'];
         //获取讲师课程
-        $course=LessonModel::where(['teacher_id'=>$teacher_id,'status'=>2])->get()->toArray();
+        $course=LessonModel::where(['teacher_id'=>$teacher_id,'status'=>1])->get()->toArray();
         if(empty($course)){
             $code=0;
         }else{

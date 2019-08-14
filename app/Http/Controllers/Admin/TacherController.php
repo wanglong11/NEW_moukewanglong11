@@ -25,6 +25,8 @@ class TacherController extends Controller
      */
     public function TeAudit(Request $request){
         $teacher_id=$request->post('teacher_id');
+
+        //dd($teacher_id);
         $data=\DB::table('teacher')->where(['teacher_id'=>$teacher_id])->update(['status'=>2]);
         if($data){
             $request=[

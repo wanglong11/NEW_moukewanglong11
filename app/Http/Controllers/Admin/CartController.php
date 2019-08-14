@@ -22,7 +22,8 @@ class CartController extends Controller
      */
     public function Parent_Cart_Add_Do(Request $request){
         $data=$request->all();
-        $cate_name=$data['cate_name'];
+        //dd($data);
+        $cate_name=$data['cart_name'];
         $arr=\DB::table('lesson_cate')->insertGetId(['cate_name'=>$cate_name,'parent_id'=>0]);
         if($arr){
             header("Refresh:2,url=/admin/Parent_Cart_List");

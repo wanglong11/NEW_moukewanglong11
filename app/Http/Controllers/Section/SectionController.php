@@ -34,10 +34,10 @@ class SectionController extends Controller
         return view('section.lessonadd',['cateinfo'=>$cateinfo]);
     }
     //递归
-    public function getcateInfo($data,$parent_id=0,$lever=1){
+    public function getcateInfo($data,$pid=0,$lever=1){
         static $info=[];
         foreach($data as $v){
-            if($v['parent_id']==$parent_id){
+            if($v['pid']==$pid){
                 $v['lever']=$lever;
                 $info[]=$v;
                 $this->getCateInfo($data,$v['cate_id'],$v['lever']+1);
@@ -102,7 +102,7 @@ class SectionController extends Controller
         if(empty($sectiondata)){
             $data['c_time']=time();
             $data['u_time']=time();
-            $data['parent_id']=0;
+            $data['pid']=0;
             $data['teacher_id']=$teacher_id;
             $res=DB::Table('lesson_dir')->insert($data);
             if($res){
@@ -128,7 +128,7 @@ class SectionController extends Controller
         foreach($lessondata as $v){
             array_push($lesson_id,$v->lesson_id);
         }
-        $dirpiddata=DB::Table('lesson_dir')->whereIn('lesson_id',$lesson_id)->where('parent_id',0)->get();
+        $dirpiddata=DB::Table('lesson_dir')->whereIn('lesson_id',$lesson_id)->where('pid',0)->get();
         $data=json_decode(json_encode($dirpiddata),true);
         return view('section.subsectionadd',['dirpiddata'=>$data]);
     }
@@ -145,7 +145,7 @@ class SectionController extends Controller
         if(empty($sectiondata)){
             $data['c_time']=time();
             $data['u_time']=time();
-            $data['parent_id']=$data['dir_id'];
+            $data['pid']=$data['dir_id'];
             $data['teacher_id']=$teacher_id;
             unset($data['dir_id']);
             // print_R($data);exit;
@@ -168,7 +168,7 @@ class SectionController extends Controller
         if(empty($teacher_id)){
             return redirect('admin/Log');
         }
-        $subdata=DB::Table('lesson_dir')->where('parent_id',0)->get();
+        $subdata=DB::Table('lesson_dir')->where('pid',0)->get();
         $dirpid=[];
         foreach($subdata as $v){
             array_push($dirpid,$v->dir_id);
@@ -178,7 +178,7 @@ class SectionController extends Controller
         // print_R($hour_iddata);exit;
         $hour_id=[];
         foreach($hour_iddata as $v){
-            if(in_array($v->parent_id,$dirpid)){
+            if(in_array($v->pid,$dirpid)){
                 array_push($hour_id,$v->dir_id);
             }
         }
@@ -200,7 +200,7 @@ class SectionController extends Controller
         if(empty($sectiondata)){
             $data['c_time']=time();
             $data['u_time']=time();
-            $data['parent_id']=$data['dir_id'];
+            $data['pid']=$data['dir_id'];
             $data['teacher_id']=$teacher_id;
             unset($data['dir_id']);
             // print_R($data);exit;
@@ -274,10 +274,10 @@ class SectionController extends Controller
             echo 1;
         }
     }
-    public function getcateson2($data,$parent_id=0,$lever=1){
+    public function getcateson2($data,$pid=0,$lever=1){
         static $info=[];
         foreach($data as $v){
-            if($v['parent_id']==$parent_id){
+            if($v['pid']==$pid){
                 $v['lever']=$lever;
                 $info[]=$v;
                 $this->getcateson2($data,$v['dir_id'],$v['lever']+1);
@@ -308,7 +308,7 @@ class SectionController extends Controller
         $dir_id=$request->input('dir_id');
         //子类
         $where=[
-            'parent_id'=>$dir_id
+            'pid'=>$dir_id
         ];
         $count=DB::table('lesson_dir')->where($where)->count();
         // echo $count;exit;

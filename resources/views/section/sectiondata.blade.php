@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           @foreach($arr as $v)
-          <tr parent_id="{{$v['parent_id']}}" dir_id="{{$v['dir_id']}}">
+          <tr parent_id="{{$v['pid']}}" dir_id="{{$v['dir_id']}}">
             <td>
                 <?php echo str_repeat("&nbsp;&nbsp;",$v["lever"]*2)?>
                 <a href="#" class="flag">+</a>

@@ -62,7 +62,6 @@
     <script src="{{asset('js/jquery.js')}}"></script>
     <script>
         $(function(){
-
              //alert(1111);
             //点击通过审核
            $('.but').click(function(){

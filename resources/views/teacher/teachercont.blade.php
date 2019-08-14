@@ -12,7 +12,7 @@
 <div class="coursecont">
 <div class="coursepic tecti">
 	<div class="teaimg">
-    <img src="{{asset($data['img'])}}" width="150">
+    <img src="{{asset('img')}}/{{$data['img']}}" width="150">
     </div>
     <div class="teachtext">
     	<h3>{{$data['name']}}&nbsp;&nbsp;<strong>{{$data['pos_name']}}</strong></h3>
@@ -34,9 +34,9 @@
 	@elseif($code==1)
 		@foreach($course as $k=>$v)
 		<li>
-			<span class="courseimg tcourseimg"><a href="/curr/currcont" target="_blank"><img width="230" src="{{asset($v['lesson_img'])}}"></a></span>
+			<span class="courseimg tcourseimg"><a href="/curr/currcont/{{$v['lesson_id']}}" target="_blank"><img width="230" src="{{asset('img')}}/{{$v['lesson_img']}}"></a></span>
 			<span class="tcoursetext">
-			   <h4><a href="/curr/currcont" target="_blank" class="teatt">{{$v['lesson_name']}}</a><a class="state">更新中</a></h4>
+			   <h4><a href="/curr/currcont/{{$v['lesson_id']}}" target="_blank" class="teatt">{{$v['lesson_name']}}</a><a class="state">更新中</a></h4>
 			   <p class="teadec">{{$v['lesson_intro']}}</p>
 			   <p class="courselabel clock">{{$v['class_hour']}}课时 {{$v['class_time']}}分钟<span class="courselabel student">{{$v['student_count']}}人学习</span><span class="courselabel pingjia">评价：<img width="71" height="14" src="images/evaluate.png" data-bd-imgshare-binded="1"></span></p>
 		   </span>
