@@ -60,5 +60,31 @@ Route::prefix('/admin')->group(function(){
 	Route::get('Reg','Admin\LoginController@reg');
 	//后台教师管理
 	Route::get('Tacher','Admin\TacherController@index');
+	//后台教师审核通过
+	Route::post('TacherAudit','Admin\TacherController@TeAudit');
+	//后台教师不通过
+	Route::post('TacherNoAudit','Admin\TacherController@TeNoAudit');
+	//教师删除
+	Route::get('teacherDel','Admin\TacherController@teacherDel');
+	//课程分类添加父类parent_id
+	Route::get('Parent_Cart_Add','Admin\CartController@Parent_Cart_Add');
+	//课程父类添加执行
+	Route::post('Parent_Cart_Add_Do','Admin\CartController@Parent_Cart_Add_Do');
+	//课程分类父类展示
+	Route::get('Parent_Cart_List','Admin\CartController@Parent_Cart_List');
+	//课程子类添加
+	Route::get('Subclass_Cart_Add','Admin\CartController@Subclass_Cart_Add');
+	//课程子类添加执行
+	Route::post('Subclass_Cart_Do','Admin\CartController@Subclass_Cart_Do');
+     //课程分类展示删除
+	Route::post('CateDel','Admin\CartController@CateDel');
+	//咨询
+    Route::get('ConsultAdd','Admin\ConsultController@Consult_Add');
+    //咨询 添加入库
+    Route::post('ConsultDO','Admin\ConsultController@ConsultDO');
+    //咨询展示
+    Route::get('Consult_List','Admin\ConsultController@Consult_List');
+    //咨询删除 ConsultDel
+    Route::get('ConsultDel','Admin\ConsultController@ConsultDel');
 });
 
