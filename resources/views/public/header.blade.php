@@ -47,7 +47,7 @@ function nTabs(thisObj,Num){
             <li><a href="exam_index.html" class="link1" target="_blank">题库</a></li>
             <li><a href="askarea.html" class="link1" target="_blank">问答</a></li>
         </ul>
-        
+
         <span class="massage">
         <!--<span class="select">
             <a href="#" class="sort">课程</a>
@@ -61,6 +61,8 @@ function nTabs(thisObj,Num){
         </span>-->
 
         <!--未登录-->
+            <a href="#" style="color: red">{{Session::get('name')}}</a>
+            <a   href="/loginout">退出</a>
             <span class="exambtn_lore">
                  <a class="tkbtn tklog" href="/login">登录</a>
                  <a class="tkbtn tkreg" href="/register">注册</a>

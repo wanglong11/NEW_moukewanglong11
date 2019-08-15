@@ -31,6 +31,7 @@ class CurrController extends Controller
     public function currcont(Request $request)
     {
     	//渲染模版
+       $name= session('name');
     	return view('curr/currcont');
     }
 
