@@ -51,7 +51,7 @@ class LoginController extends Controller
         $info=DB::table('teacher')->where('teacher_id',$teacher_id)->update($where);
 
 
-        if(!$info){
+        if($info){
             echo '提交成功';
             header("refresh:1;url='log'");
         }else{
