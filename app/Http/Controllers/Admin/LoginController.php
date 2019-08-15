@@ -49,7 +49,10 @@ class LoginController extends Controller
             'style'=>$data['style']
         ];
         $info=DB::table('teacher')->where('teacher_id',$teacher_id)->update($where);
-
+        if(!$info){
+            echo '注册失败';
+            header("refresh:1;url='reg'");
+        }
             echo '提交成功';
             header("refresh:1;url='log'");
 
@@ -63,14 +66,17 @@ class LoginController extends Controller
         return view('admin.login');
     }
     public function logininfo(Request $request){
-        $data=$request->post();
-//        dd($data);
+            $data=$request->post();
+
+      // dd($data);
         if(empty($data['name']) || empty($data['password'])){
             echo '内容需填写完整';
             header("refresh:1;url='log'");
         }
         $arr=DB::table('teacher')->where('name',$data['name'])->first();
+        //dd($arr);
         $password=decrypt($arr->password);
+//dd($password);
         $teacher_id= $arr->teacher_id;
         $name= $arr->name;
         //session存ID   user_id
