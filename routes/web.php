@@ -36,6 +36,12 @@ Route::prefix('/')->group(function(){
     Route::any('curr/evaluate/{id}','Curr\CurrController@evaluate');
     //问答
     Route::any('curr/ask/{id}','Curr\CurrController@ask');
+    //问答详情
+    Route::any('curr/askdetail/{id}','Curr\CurrController@askDetail');
+    //详情内的回答
+    Route::any('curr/detailask','Curr\CurrController@detailAsk');
+    //查看回答
+    Route::any('curr/checkask','Curr\CurrController@checkAsk');
 
     //课程详情
 	Route::get('curr/currcont/{id}','Curr\CurrController@currcont');

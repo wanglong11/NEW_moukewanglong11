@@ -82,7 +82,7 @@ $(function(){
 							            <dd class="smalltitle"><strong>第{{$kkk+1}}节&nbsp;&nbsp;{{$vvv['title']}}</strong></dd>
                                             @if(isset($vvv['data']))
                                             @foreach($vvv['data'] as $key=>$val)
-                                                <a href="{{asset('audio/')}}/{{$val['src']}}"><dd><strong class="cataloglink">课时{{$key+1}}：{{$val['title']}}</strong><i class="fini fn"></i></dd></a>
+                                                <a href="{{asset('audio')}}/{{$val['src']}}"><dd><strong class="cataloglink">课时{{$key+1}}：{{$val['title']}}</strong><i class="fini fn"></i></dd></a>
                                             @endforeach
                                             @endif
                                     @endif
@@ -141,8 +141,39 @@ $(function(){
                             <p class="pepname">{{$v['name']}}</p>
                             </span>
                             <span class="pepcont">
-                            <p><a href="#" class="peptitle" target="_blank">{{$v['content']}}</a></p>
-                            <p class="peptime pswer"><span class="pepask">回答(<strong><a class="bluelink" href="#">{{$v['reply_num']}}</a></strong>)&nbsp;&nbsp;&nbsp;&nbsp;浏览(<strong><a class="bluelink" href="#">{{$v['look_num']}}</a></strong>)</span>2015-01-02</p>
+                            <p><a href="javascript:;" class="peptitle title" ask_id="{{$v['ask_id']}}">{{$v['title']}}</a></p>
+
+                                <div style="display: none;background-color: #00A8FF">详细内容：<br/>
+                                    <span class="detail"></span>
+                                </div>
+
+                                <br />
+
+                                <div id="huida" style="display: none">
+                                    <p>
+                                        <textarea cols="25" rows="5"></textarea>
+                                        <input class="huida" type="button" ask_id="{{$v['ask_id']}}" user_id="{{$v['user_id']}}" value="回答">
+                                    </p>
+                                </div>
+
+                                <br />
+
+                                <div style="background-color: #00FFFF;display: none" id="checkAsk">
+                                    全部回答
+                                  <span>
+
+                                  </span>
+                                </div>
+                            <p class="peptime pswer">
+                                <span class="pepask">查看回答(<strong>
+                                        <a class="bluelink bluelinks" ask_id="{{$v['ask_id']}}" user_id="{{$v['user_id']}}" href="javaScript:;">{{$v['reply_num']}}</a>
+                                    </strong>)&nbsp;&nbsp;&nbsp;&nbsp;浏览(<strong>
+                                        {{$v['look_num']}}
+                                    </strong>)
+                                </span>
+                                {{date("Y-m-d",$v['c_time'])}}
+                            </p>
+
                             </span>
                         </li>
                         @endforeach
@@ -322,6 +353,7 @@ $(function(){
 
 <script>
     $(function () {
+        //评价
         $('.form1').click(function () {
 
             var score = $('.fen').text();
@@ -348,6 +380,7 @@ $(function(){
                 }
             );
         });
+        //回答
         $('.form2').click(function () {
             var title = $('#biaoti').val();
             if (title == ''){
@@ -375,7 +408,74 @@ $(function(){
                 }
             );
 
-        })
+        });
+        //提问详情
+        $('.title').click(function () {
+            var _this = $(this);
+            var ask_id = _this.attr('ask_id');
+            // alert(_this.parent('p').next('div').children('span').text());
+            $.post(
+                "/curr/askdetail/"+ask_id,
+                function (res) {
+                   if (res ==''){
+                       _this.parent('p').next('div').children('span').text('无');
+                       _this.parent('p').next('div').show();
+                       $('#huida').show();
+                   } else{
+                       _this.parent('p').next('div').children('span').text(res);
+                       _this.parent('p').next('div').show();
+                       $('#huida').show();
+                   }
+                }
+            );
+
+        });
+        //详情回答
+        $('.huida').click(function () {
+            var _this = $(this);
+            var user_id = _this.attr('user_id');
+            var ask_id = _this.attr('ask_id');
+            var content = _this.prev('textarea').val();
+            $.post(
+                "/curr/detailask",
+                {user_id:user_id,ask_id:ask_id,content:content},
+                function (res) {
+                    if (res == 1){
+                        alert('回答成功');
+                        history.go(0);
+                    } else{
+                        alert('回答失败');
+                    }
+                }
+            );
+        });
+        //查看回答
+        $('.bluelinks').click(function () {
+            var _this = $(this);
+            var user_id = _this.attr('user_id');
+            var ask_id = _this.attr('ask_id');
+            $.post(
+                "/curr/checkask",
+                {user_id:user_id,ask_id:ask_id},
+                function (res) {
+                    if (res == ''){
+                        alert('暂无回答');
+                    } else{
+                        for (var i = 0; i < res.length; i++) {
+                            $('#checkAsk').children('span').append(" " +
+                                "<p class=\"peptime pswer\">\n" +
+                                "    <span class=\"pepask\">\n" +
+                                "      "+res[i].content+"\n" +
+                                "    </span>\n" +
+                                "    {{date('Y-m-d')}}\n" +
+                                "</p>");
+                        }
+                        $('#huida').show();
+                        $('#checkAsk').show();
+                    }
+                }
+            );
+        });
     })
 </script>
 

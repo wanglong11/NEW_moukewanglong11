@@ -107,7 +107,7 @@ class CurrController extends Controller
             if($v['pid'] == $dir_id){
                 foreach ($lessonDir as $kk=>$vv){
                     if ($v['dir_id'] == $vv['pid']){
-                        $vv['src'] = LessonFile::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
+                        $vv['src'] = LessonData::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
                         $v['data'][] = $vv;
                     }
                 }
@@ -115,6 +115,7 @@ class CurrController extends Controller
                 $arr[$v['pid']][] = $v;
             }
         }
+//        dd($arr);
       return $arr;
     }
 
@@ -140,6 +141,11 @@ class CurrController extends Controller
      */
     public function chapterlist(Request $request,$lesson_id)
     {
+
+        //用户id
+        $user_id = 2;
+
+
         //调用方法
         $info = $this->_info($lesson_id);
         list($detailInfo,$teacherInfo,$lessondir) = $info;
@@ -173,7 +179,8 @@ class CurrController extends Controller
 
         //获取评论
         $evluate = LessonEvaluate::where(['lesson_id'=>$lesson_id])->orderBy('c_time','desc')->limit(3)->get()->toArray();
-       // dd($studentInfo);
+//        var_dump($evluate);
+//        dd($studentInfo);
         $evluates=[];
         foreach ($evluate as $k=>$v) {
             foreach ($studentInfo as $kk=>$vv){
@@ -192,12 +199,15 @@ class CurrController extends Controller
         foreach ($ask as $k=>$v) {
             foreach ($studentInfo as $kk=>$vv){
                 if($v['user_id'] == $vv['user_id']){
+                    $asks[$k]['user_id'] = $vv['user_id'];
                     $asks[$k]['name'] = $vv['name'];
                     $asks[$k]['img'] = $vv['img'];
                     $asks[$k]['content'] = $v['content'];
                     $asks[$k]['c_time'] = $v['c_time'];
                     $asks[$k]['look_num'] = $v['look_num'];
                     $asks[$k]['reply_num'] = $v['reply_num'];
+                    $asks[$k]['title'] = $v['title'];
+                    $asks[$k]['ask_id'] = $v['ask_id'];
                 }
             }
         }
@@ -215,13 +225,57 @@ class CurrController extends Controller
             }
         }
         //dd($lessondir);
-//        //根据章节id获取章节下的小节和课时
+//        //浏览数
+//        LessonAsk::where(['lesson_id'=>$lesson_id,'user_id'=>$user_id])->update(['look_num'=>]);
 
 
-////die;
     	//渲染模版
         //
     	return view('curr/chapterlist',compact('arr','detailInfo','teacherInfo','lessondir','pos_name','student_info','randLesson','evluates','asks','lessonDatas'));
+    }
+
+    /**
+     * 问答详情
+     * @param $id
+     * @return mixed
+     */
+    public function askDetail($id)
+    {
+        $askDetail = LessonAsk::where(['ask_id'=>$id])->first();
+        //浏览次数加一
+        LessonAsk::where(['ask_id'=>$id])->update(['look_num'=>$askDetail['look_num']+1]);
+        return $askDetail['content'];
+    }
+
+    /**
+     * 详情回答
+     * @param Request $request
+     * @return int
+     */
+    public function detailAsk(Request $request)
+    {
+        $uid = 3;
+
+        $data = $request->post();
+        $data['uid'] = $uid;
+        $data['c_time'] = time();
+        $res = LessonAskDetail::insert($data);
+        if ($res){
+            //回答次数加一
+            $askDetail = LessonAsk::where(['ask_id'=>$data['ask_id']])->first();
+            LessonAsk::where(['ask_id'=>$data['ask_id']])->update(['reply_num'=>$askDetail['reply_num']+1]);
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+
+    public function checkAsk(Request $request)
+    {
+        $user_id = $request->user_id;
+        $ask_id = $request->ask_id;
+        $res = LessonAskDetail::where(['user_id'=>$user_id,'ask_id'=>$ask_id])->get()->toArray();
+        return $res;
     }
 
 

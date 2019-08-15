@@ -37,7 +37,7 @@ class SectionController extends Controller
     public function getcateInfo($data,$pid=0,$lever=1){
         static $info=[];
         foreach($data as $v){
-            if($v['pid']==$pid){
+            if($v['parent_id']==$pid){
                 $v['lever']=$lever;
                 $info[]=$v;
                 $this->getCateInfo($data,$v['cate_id'],$v['lever']+1);
