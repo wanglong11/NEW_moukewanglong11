@@ -49,9 +49,13 @@ class LoginController extends Controller
             'style'=>$data['style']
         ];
         $info=DB::table('teacher')->where('teacher_id',$teacher_id)->update($where);
-
+        if($info){
             echo '提交成功';
             header("refresh:1;url='log'");
+        }else{
+            echo '提交失败';
+        }
+
 
     }
 
@@ -78,6 +82,7 @@ class LoginController extends Controller
         if($password!=$data['password']) {
             echo '密码错误';
             header("refresh:1;url='log'");
+            die;
         }
         $arr=DB::table('teacher')->where(['teacher_id'=>$teacher_id])->get();
         if($arr){
