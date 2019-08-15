@@ -277,6 +277,7 @@ class CurrController extends Controller
         $res = LessonAskDetail::where(['user_id'=>$user_id,'ask_id'=>$ask_id])->get()->toArray();
         foreach ($res as $k=>$v){
             $res[$k]['c_time'] = date("Y-m-d",$v['c_time']);
+            
         }
 //        dd($res);
         return $res;
