@@ -34,4 +34,5 @@ class LoginController extends Controller
     	//渲染视图
     	return view('login/login');
     }
+
 }

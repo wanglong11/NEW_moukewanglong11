@@ -458,6 +458,7 @@ $(function(){
                 "/curr/checkask",
                 {user_id:user_id,ask_id:ask_id},
                 function (res) {
+                    // console.log(res);
                     if (res == ''){
                         alert('暂无回答');
                     } else{
@@ -467,7 +468,7 @@ $(function(){
                                 "    <span class=\"pepask\">\n" +
                                 "      "+res[i].content+"\n" +
                                 "    </span>\n" +
-                                "    {{date('Y-m-d')}}\n" +
+                                "      "+res[i].c_time+"\n" +
                                 "</p>");
                         }
                         $('#huida').show();

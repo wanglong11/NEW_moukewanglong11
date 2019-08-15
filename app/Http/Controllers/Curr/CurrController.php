@@ -275,6 +275,10 @@ class CurrController extends Controller
         $user_id = $request->user_id;
         $ask_id = $request->ask_id;
         $res = LessonAskDetail::where(['user_id'=>$user_id,'ask_id'=>$ask_id])->get()->toArray();
+        foreach ($res as $k=>$v){
+            $res[$k]['c_time'] = date("Y-m-d",$v['c_time']);
+        }
+//        dd($res);
         return $res;
     }
 
