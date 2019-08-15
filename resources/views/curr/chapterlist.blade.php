@@ -207,8 +207,8 @@ $(function(){
     <h3 class="righttit">授课讲师</h3>
     <div class="teacher">
     <div class="teapic ppi">
-    <a href="teacher.html" target="_blank"><img src="{{asset('img')}}/{{$teacherInfo['img']}}" width="80" class="teapicy" title="{{$teacherInfo['name']}}"></a>
-     <h3 class="tname"><a href="teacher.html" class="peptitle" target="_blank">{{$teacherInfo['name']}}</a><p style="font-size:14px;color:#666">{{$pos_name}}</p></h3>
+    <a href="/teacher/teachercont?teacher_id={{$teacherInfo['teacher_id']}}" target="_blank"><img src="{{asset('img')}}/{{$teacherInfo['img']}}" width="80" class="teapicy" title="{{$teacherInfo['name']}}"></a>
+     <h3 class="tname"><a href="/teacher/teachercont?teacher_id={{$teacherInfo['teacher_id']}}" class="peptitle" target="_blank">{{$teacherInfo['name']}}</a><p style="font-size:14px;color:#666">{{$pos_name}}</p></h3>
     </div>
     <div class="clearh"></div>
         <p>{{$teacherInfo['intro']}}</p>

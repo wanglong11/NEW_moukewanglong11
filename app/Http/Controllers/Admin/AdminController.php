@@ -20,11 +20,11 @@ class AdminController extends Controller
 	 */
     public function index(Request $request)
     {
-		session(['teacher_id'=>1]);
+//		session(['teacher_id'=>1]);
     	// echo 111;
 		//渲染视图
 		$teacher_id=session('teacher_id');
-		// echo $teacher_id;exit;
+//		 echo $teacher_id;exit;
         if(empty($teacher_id)){
            return redirect('admin/Log');
         }

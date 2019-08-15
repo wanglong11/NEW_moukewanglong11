@@ -61,12 +61,16 @@ function nTabs(thisObj,Num){
         </span>-->
 
         <!--未登录-->
-            <a href="#" style="color: red">{{Session::get('name')}}</a>
-            <a   href="/loginout">退出</a>
+            @if(session('name') != '')
+            <span>欢迎<a href="#" style="color: red">{{Session::get('name')}}</a>登陆</span>
+            &nbsp;&nbsp;<a   href="/loginout">退出</a>
+            @endif
+            @if(session('user_id') == '')
             <span class="exambtn_lore">
                  <a class="tkbtn tklog" href="/login">登录</a>
                  <a class="tkbtn tkreg" href="/register">注册</a>
             </span>
+            @endif
             <!--登录后-->
             <!--<div class="logined">
                 <a href="mycourse.html"  onMouseOver="logmine()" style="width:70px" class="link2 he ico" target="_blank">sherley</a>

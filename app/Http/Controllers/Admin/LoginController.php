@@ -82,6 +82,7 @@ class LoginController extends Controller
         $arr=DB::table('teacher')->where(['teacher_id'=>$teacher_id])->get();
         if($arr){
             echo '登陆成功';
+            session(['teacher_id'=>$teacher_id],time()+24*60*60);
             header("refresh:1;url='index'");
         }else{
             echo '失败';

@@ -74,6 +74,7 @@ class CurrController extends Controller
     {
         //  Lesson  Lesson_dir
         //调用方法
+
         $info = $this->_info($lesson_id);
         list($detailInfo,$teacherInfo,$lessondir) = $info;
 
@@ -87,7 +88,7 @@ class CurrController extends Controller
         $noticeInfo = LessonNotice::where(['lesson_id'=>$lesson_id])->get()->toArray();
 
         //查看该用户是否收藏该课程
-        $user_id = 1;
+        $user_id = session('user_id');
         $isCollection = Collection::where(['user_id'=>$user_id,'lesson_id'=>$lesson_id,'status'=>1])->first();
 
         if ($isCollection){
@@ -151,11 +152,8 @@ class CurrController extends Controller
      */
     public function chapterlist(Request $request,$lesson_id)
     {
-
         //用户id
-        $user_id = 2;
-
-
+        $user_id = session('user_id');
         //调用方法
         $info = $this->_info($lesson_id);
         list($detailInfo,$teacherInfo,$lessondir) = $info;
@@ -339,7 +337,7 @@ class CurrController extends Controller
     {
 
         //获取当前用户id
-        $user_id = 1;
+        $user_id = session('user_id');
         $res = Collection::insert(['lesson_id'=>$lesson_id,'user_id'=>$user_id,'c_time'=>time()]);
         if($res){
             return 1;
@@ -357,7 +355,7 @@ class CurrController extends Controller
     {
 
         //获取当前用户id
-        $user_id = 1;
+        $user_id = session('user_id');
         $res = Collection::where(['user_id'=>$user_id,'lesson_id'=>$lesson_id])->update(['status'=>2]);
         if($res){
             return 1;
@@ -373,7 +371,7 @@ class CurrController extends Controller
      */
     public function evaluate($lesson_id)
     {
-        $user_id = 1;
+        $user_id = session('user_id');
         $data = \request()->post();
         $data['user_id'] = $user_id;
         $data['lesson_id'] = $lesson_id;
@@ -393,7 +391,7 @@ class CurrController extends Controller
      */
     public function ask($lesson_id)
     {
-        $user_id = 1;
+        $user_id = session('user_id');
         $data = \request()->post();
         $data['user_id'] = $user_id;
         $data['lesson_id'] = $lesson_id;
