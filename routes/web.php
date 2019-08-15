@@ -58,16 +58,30 @@ Route::prefix('/')->group(function(){
 	//讲师详情
 	Route::get('teacher/teachercont','Teacher\TeacherController@teachercont');
 	//注册页面
-	Route::get('register','Login\LoginController@register');
+    Route::get('register','Login\LoginController@register');
+    Route::post('regadd','Login\LoginController@regadd');
 	//登录页面
-	Route::get('login','Login\LoginController@login');
-});
+    Route::get('login','Login\LoginController@login');
+    Route::post('loginadd','Login\LoginController@loginadd');
 
+    // 用户授权后新浪微博回调的页面
+//    Route::get('weibo', 'AuthController@weibo');
+// 引导用户到新浪微博的登录授权页面
+    Route::get('callback', 'AuthController@callback');
+
+
+    //修改密码
+    Route::any('updadd','Login\LoginController@updadd');
+    Route::get('update','Login\LoginController@update');
+    //退出
+    Route::any('loginout','Login\LoginController@loginout');
+});
 //后台模块
 Route::prefix('/admin')->group(function(){
 	//后台首页
 	Route::get('index','Admin\AdminController@index');
 	//后台登录
+
 	Route::get('Log','Admin\LoginController@Log');
 	//后台注册
 	Route::get('Reg','Admin\LoginController@reg');
@@ -119,6 +133,18 @@ Route::prefix('/admin')->group(function(){
     Route::get('Consult_List','Admin\ConsultController@Consult_List');
     //咨询删除 ConsultDel
     Route::get('ConsultDel','Admin\ConsultController@ConsultDel');
+
+
+    Route::get('log','Admin\LoginController@Log');
+    Route::post('logininfo','Admin\LoginController@Logininfo');
+    //退出
+    Route::get('out','Admin\LoginController@out');
+    //后台注册
+	Route::get('reg','Admin\LoginController@reg');
+    Route::post('loginadd','Admin\LoginController@Loginadd');
+    //注册信息
+    Route::get('reglist','Admin\LoginController@reglist');
+    Route::post('reginfo','Admin\LoginController@reginfo');
 
 });
 

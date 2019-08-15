@@ -97,6 +97,7 @@ class CurrController extends Controller
         }
 //        var_dump($teacherInfo,$noticeInfo);
     	//渲染模版
+
     	return view('curr/currcont',compact('detailInfo','lessondir','teacherInfo','noticeInfo','pos_name','randLesson','isCollection'));
     }
 
@@ -121,6 +122,10 @@ class CurrController extends Controller
        //dd($arr);
 
       return $arr;
+
+       $name= session('name');
+    	return view('curr/currcont');
+
     }
 
 
