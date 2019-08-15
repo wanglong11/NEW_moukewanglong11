@@ -107,7 +107,7 @@ class CurrController extends Controller
             if($v['pid'] == $dir_id){
                 foreach ($lessonDir as $kk=>$vv){
                     if ($v['dir_id'] == $vv['pid']){
-                        $vv['src'] = LessonFile::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
+                        $vv['src'] = LessonData::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
                         $v['data'][] = $vv;
                     }
                 }
@@ -115,8 +115,10 @@ class CurrController extends Controller
                 $arr[$v['pid']][] = $v;
             }
         }
+       //dd($arr);
       return $arr;
     }
+
 
 //    private function _aaa($lessonDir,$dir_id){
 //        $tree = [];
