@@ -24,7 +24,8 @@ class TeacherController extends Controller
 	 */
     public function teacherList(Request $request)
     {
-        $data=TeacherModel::get()->toArray();
+        $data=TeacherModel::where(['status'=>2])->get()->toArray();
+      //  dd($data);
         if(!$data){
             $code=0;
         }else{
@@ -52,7 +53,7 @@ class TeacherController extends Controller
         $pos_id=PosTeacherModel::where(['teacher_id'=>$teacher_id])->first()['pos_id'];
         $data['pos_name']=TeacherPosModel::where(['pos_id'=>$pos_id])->first()['pos_name'];
         //获取讲师课程
-        $course=LessonModel::where(['teacher_id'=>$teacher_id,'status'=>1])->get()->toArray();
+        $course=LessonModel::where(['teacher_id'=>$teacher_id,'status'=>2])->get()->toArray();
         if(empty($course)){
             $code=0;
         }else{
