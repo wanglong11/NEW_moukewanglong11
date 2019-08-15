@@ -115,9 +115,14 @@ class CurrController extends Controller
                 $arr[$v['pid']][] = $v;
             }
         }
+
 //        dd($arr);
+
+       //dd($arr);
+
       return $arr;
     }
+
 
 //    private function _aaa($lessonDir,$dir_id){
 //        $tree = [];
