@@ -21,7 +21,7 @@
         <p class="courstime">学习人数：<span class="course_tt">{{$detailInfo['student_count']}}人</span></p>
 		<p class="courstime">讲师：{{$teacherInfo['name']}}</p>
 		<p class="courstime">课程评价：<img width="71" height="14" src="{{asset('images/evaluate5.png')}}}">&nbsp;&nbsp;<span class="hidden-sm hidden-xs">5.0分（10人评价）</span></p>
-        <!--<p><a class="state end">完结</a></p>-->      
+        <!--<p><a class="state end">完结</a></p>-->
         <span class="coursebtn">
             <a class="btnlink" href="/curr/chapterlist/{{$detailInfo['lesson_id']}}">加入学习</a>
             <a class="codol fx" href="javascript:void(0);" onClick="$('#bds').toggle();">分享课程</a>
@@ -108,7 +108,7 @@
     </div>
     </div>
 </div>
-   
+
 </div>
 
 
@@ -155,9 +155,8 @@
                    }
                );
            }
-
-
         })
+
     })
 </script>
 
