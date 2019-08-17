@@ -66,14 +66,21 @@ Route::prefix('/')->group(function(){
 	//登录页面
     Route::get('login','Login\LoginController@login');
     Route::post('loginadd','Login\LoginController@loginadd');
+    Route::any('code','Login\LoginController@code');
+
 
 // 引导用户到新浪微博的登录授权页面
+    // 用户授权后新浪微博回调的页面
+    //Route::get('weibo', 'AuthController@weibo');
+    //引导用户到新浪微博的登录授权页面
+
     Route::get('callback', 'AuthController@callback');
-
-
-    //修改密码
-    Route::any('updadd','Login\LoginController@updadd');
+   //验证邮箱
+    Route::post('updadd','Login\LoginController@updadd');
     Route::get('update','Login\LoginController@update');
+    //修改密码
+    Route::get('updlist','Login\LoginController@updlist');
+    Route::post('upds','Login\LoginController@upds');
     //退出
     Route::any('loginout','Login\LoginController@loginout');
 });
