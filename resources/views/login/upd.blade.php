@@ -60,6 +60,7 @@
                         "{{url('code')}}",
                         {email:email,_token:_token},
                         function (res) {
+                            // console.log(res);
                             if (res){
                                 alert('发送成功');
                             } else{
