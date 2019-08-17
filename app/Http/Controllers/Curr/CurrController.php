@@ -19,6 +19,8 @@ use App\Model\TeacherPos;
 use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use mysql_xdevapi\Session;
+
 /**
  * 课程模块类
  * class CurrController
@@ -101,13 +103,14 @@ class CurrController extends Controller
     }
 
 
+
    private function _aaa($lessonDir,$dir_id){
         static $arr = [];
         foreach ($lessonDir as $k=>$v){
             if($v['pid'] == $dir_id){
                 foreach ($lessonDir as $kk=>$vv){
                     if ($v['dir_id'] == $vv['pid']){
-                        $vv['src'] = LessonFile::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
+                        $vv['src'] = LessonData::where(['dir_id'=>$vv['dir_id']])->select('src')->first()['src'];
                         $v['data'][] = $vv;
                     }
                 }
@@ -140,6 +143,22 @@ class CurrController extends Controller
      */
     public function chapterlist(Request $request,$lesson_id)
     {
+        //调用方法
+        $teacher_id=Lesson::where(['lesson_id'=>$lesson_id])->first()['teacher_id'];
+        //判断用户是否已经将某一课程加入学习
+        $user_id=Session('user_id');
+        $is_join=StudentLesson::where(['user_id'=>$user_id,'lesson_id'=>$lesson_id])->first();
+        if(!$is_join){
+            $student_lesson_info=[
+                'user_id'=>$user_id,
+                'lesson_id'=>$lesson_id,
+                'c_time'=>time(),
+                'teacher_id'=>$teacher_id
+            ];
+            StudentLesson::insert($student_lesson_info);
+            Lesson::where(['lesson_id'=>$lesson_id])->increment('student_count');
+        }
+
         //调用方法
         $info = $this->_info($lesson_id);
         list($detailInfo,$teacherInfo,$lessondir) = $info;

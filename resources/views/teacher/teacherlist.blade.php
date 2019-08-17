@@ -17,7 +17,7 @@
 		@foreach($data as $k=>$v)
 		<div class="coursepic tecti">
 			<div class="teaimg">
-			<a href="/teacher/teachercont?teacher_id={{$v['teacher_id']}}" target="_blank"><img src="{{asset($v['img'])}}" width="150"></a>
+			<a href="/teacher/teachercont?teacher_id={{$v['teacher_id']}}" target="_blank"><img src="{{asset('img')}}/{{$v['img']}}" width="150"></a>
 			</div>
 			<div class="teachtext">
 				<h3><a href="/teacher/teachercont?teacher_id={{$v['teacher_id']}}" target="_blank" class="teatt">{{$v['name']}}</a>&nbsp;&nbsp;<strong>{{$v['pos_name']}}</strong></h3>
