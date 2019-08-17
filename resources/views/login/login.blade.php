@@ -33,16 +33,19 @@
     
 </div>
 <div class="loginbtn lb">
-   <a href="#" class="link-muted">还没有账号？立即免费注册</a>
+   <a href="register" class="link-muted">还没有账号？立即免费注册</a>
    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>   
-   <a href="forgetpassword.html" class="link-muted">找回密码</a>
+   <a href="update" class="link-muted">找回密码</a>
 </div>
 </form>
 <div class="hezuologo">
     <span class="hezuo">使用合作网站账号登录</span>
     <div class="hezuoimg">
     <img src="images/hezuoqq.png" class="hzqq" title="QQ" width="40" height="40"/>
-    <img src="images/hezuowb.png" class="hzwb" title="微博" width="40" height="40"/>
+
+        <a href="{{url('https://api.weibo.com/oauth2/authorize?client_id=3376413357&response_type=code&redirect_uri=http://www.laravel11.com/callback')}}">
+            <img src="images/hezuowb.png" class="hzwb" title="微博" width="40" height="40"/>
+        </a>
 
     <link rel="stylesheet" href="{{asset('css/course.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/register-login.css')}}"/>
