@@ -64,6 +64,7 @@ function nTabs(thisObj,Num){
             @if(session('name') != '')
             <span>欢迎<a href="#" style="color: red">{{Session::get('name')}}</a>登陆</span>
             &nbsp;&nbsp;<a   href="/loginout">退出</a>
+                <a href="/mycourse" style="width:70px" class="link2 he ico" target="_blank">个人中心</a>
             @endif
             @if(session('user_id') == '')
             <span class="exambtn_lore">

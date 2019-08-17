@@ -57,6 +57,9 @@ Route::prefix('/')->group(function(){
 	Route::get('teacher/teacherlist','Teacher\TeacherController@teacherList');
 	//讲师详情
 	Route::get('teacher/teachercont','Teacher\TeacherController@teachercont');
+	//个人中心
+    Route::get('mycourse','Course\MycourseController@index');
+
 	//注册页面
     Route::get('register','Login\LoginController@register');
     Route::post('regadd','Login\LoginController@regadd');
@@ -64,8 +67,6 @@ Route::prefix('/')->group(function(){
     Route::get('login','Login\LoginController@login');
     Route::post('loginadd','Login\LoginController@loginadd');
 
-    // 用户授权后新浪微博回调的页面
-//    Route::get('weibo', 'AuthController@weibo');
 // 引导用户到新浪微博的登录授权页面
     Route::get('callback', 'AuthController@callback');
 
