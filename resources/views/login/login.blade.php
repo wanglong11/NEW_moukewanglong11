@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="{{asset('css/register-login.css')}}"/>
 <script src="{{asset('js/jquery.tabs.js')}}"></script>
 <script src="{{asset('js/mine.js')}}"></script>
-
+{{--<script src="{{asset('js/jquery-1.8.0.min.js')}}"></script>--}}
+<script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js"></script>
 <!-- InstanceBeginEditable name="EditRegion1" -->
 <div class="login" >
 <h2>登录</h2>
@@ -27,6 +28,12 @@
     </p>
     <p class="help-block"><span class="text-danger">密码错误</span></p>
 </div>
+    <div>
+    <p class="formrow">
+        <label class="control-label" for="register_email">安全验证</label>
+    <div style="float: left;position:absolute;top:400px;left:300px;" class="text-danger" id="demo-oneclick">
+        </div>
+</div>
 <div class="loginbtn">
 	<label><input type="checkbox"  checked="checked"> <span class="jzmm">记住密码</span> </label>&nbsp;&nbsp;
     <button type="submit" class="uploadbtn ub1">登录</button>
@@ -42,8 +49,9 @@
     <span class="hezuo">使用合作网站账号登录</span>
     <div class="hezuoimg">
     <img src="images/hezuoqq.png" class="hzqq" title="QQ" width="40" height="40"/>
-    <img src="images/hezuowb.png" class="hzwb" title="微博" width="40" height="40"/>
-
+        <a href="{{url('https://api.weibo.com/oauth2/authorize?client_id=2869939600&response_type=code&redirect_uri=http://www.11.com/callback')}}">
+            <img src="images/hezuowb.png" class="hzwb" title="微博" width="40" height="40"/>
+        </a>
     <link rel="stylesheet" href="{{asset('css/course.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/register-login.css')}}"/>
     <script src="{{asset('js/jquery.tabs.js')}}"></script>
@@ -57,6 +65,32 @@
 
 
     <div class="clearh"></div>
-    <script src="/js/jquery-1.8.0.min.js"></script>
+
 </div>
+<!-- 注册js部分 -->
+<script type="text/javascript">
+    //开启自动加载函数
+    $(function() {
+        //引入layer美化提示信息
+
+            var check = '';
+            //安全验证
+            var myCodecheck = _dx.Captcha(document.getElementById('demo-oneclick'), {
+                appId: '9ce41efd20078399fb0c31bfd23aad92',
+                style: 'oneclick',
+                // language:'en',
+                width: 300,
+                success: function (token) {
+                    check = token;
+                }
+
+            })
+        })
+//    if (check == '') {    验证安全验证
+//        layer.msg('请完成验证');
+//        return false;
+//    }
+
+
+    </script>
 @endsection
