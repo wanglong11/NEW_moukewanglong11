@@ -30,8 +30,10 @@ class LoginController extends Controller
     public function regadd(Request $request){
 	    $data=$request->post();
         if(empty($data['email']) || empty($data['password']) || empty($data['name']) || empty($data['pwd'])){
-            echo '内容需填写完整';
-            header("refresh:1;url='register'");
+           // echo '内容需填写完整';
+            //header("refresh:1;url='register'");
+            header("Refresh:2,url=register");
+            die("内容需填写完整");
         }
 	    $pwd=$data['pwd'];
 	    if($pwd==$data['password']){
@@ -66,42 +68,51 @@ class LoginController extends Controller
     /*登录执行*/
     public function loginadd(Request $request){
         $data=$request->post();
+        //dd($data);
         if(empty($data['email']) || empty($data['password'])){
             echo '内容需填写完整';
             header("refresh:1;url='login'");
             die;
         }
-        $date=RegisterModel::where('email',$data['email'])->orwhere('name',$data['email'])->first()->toArray();
-        if($date['status'] == 2){
-            echo '你的账号已锁定,详情请联系客服';
+        $date=RegisterModel::where('email',$data['email'])->orwhere('name',$data['email'])->first();
+        //dd($date);
+        if($date==''){
+            echo "该用户名或者密码不正确，请重新输入";die;
+        }
+        if($date->status == 2){
+            echo '你的账号已锁定,详情请联系客服';die;
         }
         if(!$date){
-            echo '用户不存在';
+            echo '用户不存在';die;
         }else{
-            $password=decrypt($date['password']);
-            $userid= $date['user_id'];
-            $name= $date['name'];
+            $password=decrypt($date->password);
+
+            //dd($password);
+            $userid= $date->user_id;
+            //dd($userid);
+            $name= $date->name;
             //session存ID   user_id
+            //dd($date->password);
             session(['user_id'=>$userid,'name'=>$name]);
             if($password!=$data['password']){
 
-                if(time()-$date['err_time'] > 7200){
+                if(time()-$date->err_time > 7200){
                    DB::table('user')->where(['user_id'=>$userid])->update(['err_num'=>1,'err_time'=>time()]);
                 }else{
-                    if($date['err_num'] >= 3){
+                    if($date->err_num >= 3){
                         DB::table('user')->where(['user_id'=>$userid])->update(['status'=>2]);
-                        $flushtime = ($date['err_time'] + 7200) - time();
-                       echo '你的账号已锁定，请'.$flushtime.'s之后重试';
+                        $flushtime = ($date->err_time + 7200) - time();
+                       echo '你的账号已锁定，请'.$flushtime.'s之后重试';die;
                     }else{
-                        DB::table('user')->where(['user_id'=>$userid])->update(['err_num'=>$date['err_num']+1,'err_time'=>time()]);
+                        DB::table('user')->where(['user_id'=>$userid])->update(['err_num'=>$date->err_num+1,'err_time'=>time()]);
                     }
                 }
-                echo '密码错误';
+                echo '密码不对';
                 header("refresh:2;url='login'");
             }else{
-                if($date['err_num'] >= 3 && time()-$date['err_time'] < 7200){
-                    $flushtime = ($date['err_time'] + 7200) - time();
-                    echo '你的账号已锁定，请'.$flushtime.'s之后重试';
+                if($date->err_num >= 3 && time()-$date->err_time < 7200){
+                    $flushtime = ($date->err_time + 7200) - time();
+                    echo '你的账号已锁定，请'.$flushtime.'s之后重试';die;
                 }
                 DB::table('user')->where(['user_id'=>$userid])->update(['err_num'=>0,'err_time'=>null]);
                 echo '登陆成功';
