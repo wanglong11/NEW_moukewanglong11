@@ -15,8 +15,9 @@ class AuthController extends Controller
     {
         set_time_limit(0);
         $code = $request->code;
-//    dd($code);
-        $url = "https://api.weibo.com/oauth2/access_token?client_id=3376413357&client_secret=2c07f1f930c06c64cd1c4945dc71a9af&grant_type=authorization_code&redirect_uri=http://www.laravel11.com/callback&code=".$code;
+    dd($code);
+        $url = "https://api.weibo.com/oauth2/access_token?client_id=2869939600&client_secret=
+    c184ecb5b03226f897c767a467f187d8&grant_type=authorization_code&redirect_urihttp://http://www.11.com/callback&code=".$code;
         $data = $this->curl($url);
 //        dd($data);
 
